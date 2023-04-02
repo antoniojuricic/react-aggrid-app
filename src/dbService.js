@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, where } from 'firebase/firestore';
 import { db } from './firebase'; // import your Firebase instance
 
 // Create a new document in the specified collection
@@ -64,10 +64,28 @@ const deleteDocument = async (collectionName, docId) => {
   }
 };
 
+// Get documents from the specified collection matching the given query
+const getDocumentsByQuery = async (collectionName, field, operator, value) => {
+  try {
+    const querySnapshot = await getDocs(
+      query(
+        collection(db, collectionName),
+        where(field, operator, value)
+      )
+    );
+    const documents = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    return documents;
+  } catch (error) {
+    console.error('Error getting documents by query:', error);
+    return null;
+  }
+};
+
 export default {
   createDocument,
   getAllDocuments,
   getDocument,
   updateDocument,
   deleteDocument,
+  getDocumentsByQuery
 };

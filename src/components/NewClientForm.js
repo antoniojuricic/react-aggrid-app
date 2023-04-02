@@ -12,6 +12,7 @@ const NewclientForm = ({ setNewAdded }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      formData.timestamp = Date.now();
       const docRef = await dbService.createDocument('clients', formData);
       console.log('Document written with ID: ', docRef.id);
       setNewAdded(true);

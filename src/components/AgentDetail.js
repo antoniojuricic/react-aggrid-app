@@ -7,6 +7,7 @@ const AgentDetails = ({ id, handleDelete }) => {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState(agent);
   const [companies, setCompanies] = useState([]);
+  const [company, setCompany] = useState(null);
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -24,6 +25,10 @@ const AgentDetails = ({ id, handleDelete }) => {
     };
     fetchAgent();
   }, [id]);
+
+  useEffect(() => {
+    setCompany(companies.filter((company) => company.id === agent.companyRef)[0]);
+  }, [agent]);
 
   const handleEdit = () => {
     setEditing(true);
@@ -80,13 +85,13 @@ const AgentDetails = ({ id, handleDelete }) => {
           <Form.Label>Company:</Form.Label>
           <Form.Control
             as="select"
-            name="companyName"
+            name="companyRef"
             value={formData.companyName}
             onChange={handleChange}
           >
             <option value="">Select a company</option>
             {companies.map((company) => (
-              <option key={company.id} value={company.name}>
+              <option key={company.id} value={company.id}>
                 {company.name}
               </option>
             ))}
@@ -121,7 +126,7 @@ const AgentDetails = ({ id, handleDelete }) => {
             <td>{agent.name}</td>
             <td>{agent.email}</td>
             <td>{timestamp}</td>
-            <td>{agent.companyName}</td>
+            <td>{company && company.name}</td>
           </tr>
         </tbody>
       </Table>

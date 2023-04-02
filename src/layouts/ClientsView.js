@@ -1,7 +1,8 @@
 import ClientsMaster from "../components/ClientsMaster";
 import ClientDetail from "../components/ClientDetail";
 import { useEffect, useState } from "react";
-import  dbService  from "../dbService";
+import dbService from "../dbService";
+import Offers from "../components/Offers"
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,7 +15,7 @@ function ClientsView() {
   const [newAdded, setNewAdded] = useState(false);
   async function fetchClients() {
     try {
-      const clients = await dbService.getAllDocuments('clients');
+      const clients = await dbService.getAllDocuments("clients");
       setItems(clients);
     } catch (error) {
       console.log(error);
@@ -30,17 +31,15 @@ function ClientsView() {
       setNewAdded(false);
       setAddNew(false);
     }
-    
   }, [newAdded]);
 
   const handleItemClick = (itemId) => {
     setClientId(itemId);
-    
   };
 
   const handleAddNew = () => {
-    setAddNew(prevAddNew => !prevAddNew);
-  }
+    setAddNew((prevAddNew) => !prevAddNew);
+  };
 
   const handleDelete = async () => {
     await dbService.deleteDocument("clients", clientId);
@@ -68,10 +67,10 @@ function ClientsView() {
         </Col>
         <Col>
           {clientId && (
-            <ClientDetail
-              id={clientId}
-              handleDelete={handleDelete}
-            />
+            <>
+              <ClientDetail id={clientId} handleDelete={handleDelete} />
+              <Offers clientId={clientId} handleDelete={handleDelete} />
+            </>
           )}
         </Col>
       </Row>

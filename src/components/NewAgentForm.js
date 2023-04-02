@@ -6,7 +6,7 @@ const NewAgentForm = ({ setNewAdded }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    companyName: '',
+    companyRef: '',
     timestamp: 0,
   });
   const [companies, setCompanies] = useState([]);
@@ -22,6 +22,7 @@ const NewAgentForm = ({ setNewAdded }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      formData.timestamp = Date.now();
       const docRef = await dbService.createDocument('agents', formData);
       console.log('Document written with ID: ', docRef.id);
       setNewAdded(true);
@@ -29,7 +30,7 @@ const NewAgentForm = ({ setNewAdded }) => {
       setFormData({
         name: '',
         email: '',
-        companyName: '',
+        companyRef: '',
         timestamp: 0,
       });
     } catch (error) {
@@ -66,12 +67,12 @@ const NewAgentForm = ({ setNewAdded }) => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="companyName">
+        <Form.Group controlId="companyRef">
           <Form.Label>Company:</Form.Label>
           <Form.Control
             as="select"
-            name="companyName"
-            value={formData.companyName}
+            name="companyRef"
+            value={formData.companyRef}
             onChange={handleInputChange}
           >
             <option value="">Select a company</option>
