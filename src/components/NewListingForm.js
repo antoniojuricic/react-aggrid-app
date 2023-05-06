@@ -16,7 +16,8 @@ const NewListingForm = ({ setNewAdded }) => {
     discountedPrice: 0,
     latitude: 0,
     longitude: 0,
-    agentRef: ""
+    agentRef: "",
+    offer: 0
   });
   const [agents, setAgents] = useState([]);
   const [owners, setOwners] = useState([]);
@@ -58,7 +59,8 @@ const NewListingForm = ({ setNewAdded }) => {
         discountedPrice: 0,
         latitude: 0,
         longitude: 0,
-        agentRef: ""
+        agentRef: "",
+        offer: 0
       });
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -160,15 +162,28 @@ const NewListingForm = ({ setNewAdded }) => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="discountedPrice">
-          <Form.Label>Discounted Price:</Form.Label>
-          <Form.Control
-            type="number"
-            name="discountedPrice"
-            value={formData.discountedPrice}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+        <Form.Group controlId="formDiscountedPriceCheck">
+              <Form.Label>Discounted price:</Form.Label>
+              <Form.Check
+                type="checkbox"
+                name="discount"
+                label="Discounted price"
+                checked={formData.offer}
+                onChange={handleFormChange}
+              />
+          </Form.Group>
+          {formData.offer && (
+              <Form.Group controlId="formDiscountedPrice">
+                <Form.Label>Discounted Price:</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="discountedPrice"
+                  value={formData.discountedPrice}
+                  onChange={handleFormChange}
+                  required
+                />
+              </Form.Group>
+            )}
         <Form.Group controlId="latitude">
           <Form.Label>Latitude:</Form.Label>
           <Form.Control

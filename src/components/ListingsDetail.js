@@ -167,6 +167,16 @@ const ListingsDetail = ({ id, handleDelete }) => {
                 required
               />
             </Form.Group>
+            <Form.Group controlId="formDiscountedPriceCheck">
+              <Form.Label>Discounted price:</Form.Label>
+              <Form.Check
+                type="checkbox"
+                name="discount"
+                label="Discounted price"
+                checked={formData.offer}
+                onChange={handleFormChange}
+              />
+            </Form.Group>
             {formData.offer && (
               <Form.Group controlId="formDiscountedPrice">
                 <Form.Label>Discounted Price:</Form.Label>
@@ -276,7 +286,7 @@ const ListingsDetail = ({ id, handleDelete }) => {
                 <td>{listing.address}</td>
                 <td>{listing.description}</td>
                 <td>{listing.regularPrice} €</td>
-                <td>{listing.discountedPrice} €</td>
+                <td>{listing.offer ? listing.discountedPrice + "€" : "-"}</td>
                 <td>{listing.latitude}</td>
                 <td>{listing.longitude}</td>
                 <td>{listingAgent && listingAgent.name}</td>
