@@ -171,7 +171,7 @@ const ListingsDetail = ({ id, handleDelete }) => {
               <Form.Label>Discounted price:</Form.Label>
               <Form.Check
                 type="checkbox"
-                name="discount"
+                name="offer"
                 label="Discounted price"
                 checked={formData.offer}
                 onChange={handleFormChange}
