@@ -169,7 +169,7 @@ const NewListingForm = ({ setNewAdded }) => {
                 name="discount"
                 label="Discounted price"
                 checked={formData.offer}
-                onChange={handleFormChange}
+                onChange={handleInputChange}
               />
           </Form.Group>
           {formData.offer && (
@@ -179,7 +179,7 @@ const NewListingForm = ({ setNewAdded }) => {
                   type="number"
                   name="discountedPrice"
                   value={formData.discountedPrice}
-                  onChange={handleFormChange}
+                  onChange={handleInputChange}
                   required
                 />
               </Form.Group>
